@@ -42,6 +42,12 @@ interface Props {
         }
     }
 
+    //Clear completed tasks
+
+    const handleClearClick = () => {
+        setTasks(tasks => tasks.filter(task=>!task.completed))
+    }
+
     const taskListItems = tasks.map((task)=>
     <li key={task.id}>
         <input type="checkbox" checked={task.completed} onChange={handleCompletedChange(task)} />
@@ -59,6 +65,9 @@ interface Props {
       onChange={handleNewTaskTitleChange}
       onKeyDown={handleNewTaskKeyDown}
        />
+       <div>
+       <button className='text-primary border-black border-2' onClick={handleClearClick}>Clear Completed Tasks</button>
+       </div>
     </div>
   );
 }
