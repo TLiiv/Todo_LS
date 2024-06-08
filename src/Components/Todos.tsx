@@ -10,11 +10,12 @@ interface Props {
     //userId: number,
     title: string,
     id: string,
-    //completed: boolean
+    completed: boolean
 }
 
  export const Todos: React.FC<Props> = (props: Props) => {
 
+    //Add new task
     const [tasks, setTasks] = useState<Task[]>([]);
     const [newTaskTitle, setNewTaskTitle] = useState("")
 
@@ -22,16 +23,30 @@ interface Props {
         setNewTaskTitle(e.target.value);
     };
 
-    //For input enter key press with input field reset
+    //Task complete managment with checkbox value
+    const handleCompletedChange = (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
+        setTasks(tasks=>(tasks.map((task)=>{
+            if(task.id === handledTask.id){ 
+                return {...task,completed: e.target.checked} 
+            }return task;
+        })))
+    }
+       
+    console.log(tasks);
+
+    //Add new task with enter key
     const handleNewTaskKeyDown =(e: KeyboardEvent<HTMLInputElement>) =>{
         if(e.key === 'Enter' && newTaskTitle != ''){
-            setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid()}]);
+            setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid(),completed:false}]);
             setNewTaskTitle('');
         }
     }
 
     const taskListItems = tasks.map((task)=>
-    <li key={task.id}>{task.title}</li>
+    <li key={task.id}>
+        <input type="checkbox" checked={task.completed} onChange={handleCompletedChange(task)} />
+        {task.title}
+        </li>
     )
 
   return (
