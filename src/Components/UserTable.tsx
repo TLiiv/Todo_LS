@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useLocalStorage from "../Hooks/use-local-storage";
 
 
 interface Props {
@@ -17,6 +18,7 @@ const usersUrl = "https://jsonplaceholder.typicode.com/users";
 export const UserTable: React.FC<Props> = (props: Props) => {
 
   const [users,setUsers] = useState<User[]>([]);
+  //const [users,setUsers] = useLocalStorage<User[]>('users',[]);
 
 
   useEffect(()=>{

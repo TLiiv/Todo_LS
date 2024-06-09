@@ -22,11 +22,15 @@ interface Props {
     //let { id } = useParams();// Get the userId param from the URL.
     const todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${props.id}`;
     
-    const [tasks, setTasks] = useState<Task[]>([]);
+    //const [tasks, setTasks] = useState<Task[]>([]);
     //const [tasks, setTasks] = useLocalStorage<Task[]>('tasks',[]);
+    const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', [], "user_");
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     
+
+
+
 
     //Get user tasks based on userId and save them to local storage
     useEffect(()=>{
@@ -39,6 +43,42 @@ interface Props {
             console.log(error)})
             setIsLoading(false);
     },[props.id])
+
+    // useEffect(() => {
+    //     const storedTasks = localStorage.getItem('tasks'); // Check local storage directly
+    //     if (storedTasks) {
+    //       setTasks(JSON.parse(storedTasks)); // Set tasks from local storage if available
+    //     } else {
+    //       axios.get(todoUrl)
+    //         .then((response) => {
+    //           setTasks(response.data);
+    //           setIsLoading(false);
+    //         })
+    //         .catch((error) => {
+    //           console.log(error);
+    //         })
+    //         .finally(() => setIsLoading(false));
+    //     }
+    //   }, [props.id]);
+    
+      useEffect(() => {
+        const storedTasks = localStorage.getItem(`tasks_${props.id}`); // Check local storage using a unique key per user
+        if (storedTasks) {
+          setTasks(JSON.parse(storedTasks)); // Set tasks from local storage if available
+        } else {
+          axios.get(todoUrl)
+            .then((response) => {
+              setTasks(response.data);
+              localStorage.setItem(`tasks_${props.id}`, JSON.stringify(response.data)); // Store tasks with a user-specific key
+              setIsLoading(false);
+            })
+            .catch((error) => {
+              console.log(error);
+              setIsLoading(false);
+            });
+        }
+      }, [props.id, todoUrl]);
+      
 
 
     //Add new task
@@ -91,13 +131,14 @@ interface Props {
   return (
     <div>
         <button onClick={handleOnBackClick}>Back to users</button>
-     {isLoading ? (
+        <ul>{taskListItems}</ul>
+     {/* {isLoading ? (
       <p>Loading tasks...</p>
     ) : (
       <ul>
         {taskListItems}
       </ul>
-        )}
+        )} */}
       <input 
       value={newTaskTitle} 
       onChange={handleNewTaskTitleChange}

@@ -15,7 +15,10 @@ const useLocalStorage = <TState>(key: string, newState: TState) => {
         window.localStorage.setItem(key, JSON.stringify(state));
     },[key,state])
 
-    return [state, setState];
+    return [state, setState] as const;
 }
 
+
 export default useLocalStorage;
+
+
