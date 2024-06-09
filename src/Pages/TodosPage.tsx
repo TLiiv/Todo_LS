@@ -1,14 +1,14 @@
-import { UserTodos } from "../Components/UserTodos";
+import React from "react";
 import { useParams } from "react-router-dom";
+import { UserTodos } from "../Components/UserTodos";
 
-export interface ITodosProps {
-}
+export interface ITodosProps {}
 
-export default function TodosPage (props: ITodosProps) {
-  let { id } = useParams<{ id: string }>();
+const TodosPage: React.FC<ITodosProps> = (props: ITodosProps) => {
+  const { id } = useParams<{ id: string }>();
 
-  if(!id){
-    return console.log("User id is missing")
+  if (!id) {
+    return <div>User ID is missing</div>;
   }
 
   return (
@@ -16,4 +16,7 @@ export default function TodosPage (props: ITodosProps) {
       <UserTodos id={id} />
     </div>
   );
-}
+};
+
+export default TodosPage;
+

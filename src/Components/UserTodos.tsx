@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useState, ChangeEvent, KeyboardEvent,useEffect } from 'react';
 import  axios  from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import useLocalStorage from '../Hooks/use-local-storage';
 
 
 interface Props {
@@ -22,11 +23,12 @@ interface Props {
     const todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${props.id}`;
     
     const [tasks, setTasks] = useState<Task[]>([]);
+    //const [tasks, setTasks] = useLocalStorage<Task[]>('tasks',[]);
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     
 
-    //Get user tasks based on userId
+    //Get user tasks based on userId and save them to local storage
     useEffect(()=>{
         axios.get(todoUrl)
         .then((response)=>{
