@@ -2,7 +2,8 @@ import { nanoid } from 'nanoid';
 import * as React from 'react';
 import { useState, ChangeEvent, KeyboardEvent,useEffect } from 'react';
 import  axios  from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 interface Props {
 }
@@ -15,21 +16,16 @@ interface Props {
     completed: boolean
 }
 
-
-
  export const UserTodos: React.FC<Props> = (props: Props) => {
 
    
-    // Get the userId param from the URL.
-    let { id } = useParams();
+    let { id } = useParams();// Get the userId param from the URL.
     const todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${id}`;
     
     const [tasks, setTasks] = useState<Task[]>([]);
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     
-  
-
 
     //Get user tasks based on userId
     useEffect(()=>{
@@ -44,9 +40,6 @@ interface Props {
             setIsLoading(false);
     },[id])
 
-  
-
- 
 
     //Add new task
     const handleNewTaskTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +60,7 @@ interface Props {
     //Add new task with enter key
     const handleNewTaskKeyDown =(e: KeyboardEvent<HTMLInputElement>) =>{
         if(e.key === 'Enter' && newTaskTitle !== ''){
-            setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid(),completed:false}]);
+            setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid(),completed:false,userId:String(id)}]);
             setNewTaskTitle('');
         }
     }
@@ -89,9 +82,15 @@ interface Props {
         <button onClick={handleTaskDeleteClick(task)}>Delete</button>
         </li>
     )
+    //Back button
+    const navigate = useNavigate();
+    const handleOnBackClick =()=> {
+        navigate("/");
+    }
 
   return (
     <div>
+        <button onClick={handleOnBackClick}>Back to users</button>
      {isLoading ? (
       <p>Loading tasks...</p>
     ) : (
