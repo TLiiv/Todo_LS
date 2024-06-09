@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 
 interface Props {
-
 }
 
  type User = {
@@ -24,21 +23,15 @@ export const UserTable: React.FC<Props> = (props: Props) => {
     axios.get(usersUrl)
     .then((response)=>{
       setUsers(response.data);
-      console.log(`Axios data stringified: ${JSON.stringify(response.data)}`);
     })
     .catch((error)=>{
       console.log(error);
     });
   },[]);
 
-
-
   //Rerender when users are updated
   useEffect(()=>{
-    console.log('Users state updated:', users);
   },[users])
-
-
 
   const userTableInfo = users.map((user) => (
     <tr key={user.id}>

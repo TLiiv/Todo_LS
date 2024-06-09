@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 
 interface Props {
+    id: string;
 }
 
 
@@ -16,11 +17,9 @@ interface Props {
     completed: boolean
 }
 
- export const UserTodos: React.FC<Props> = (props: Props) => {
-
-   
-    let { id } = useParams();// Get the userId param from the URL.
-    const todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${id}`;
+   export const UserTodos: React.FC<Props> = (props: Props) => {
+    //let { id } = useParams();// Get the userId param from the URL.
+    const todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${props.id}`;
     
     const [tasks, setTasks] = useState<Task[]>([]);
     const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -33,12 +32,11 @@ interface Props {
         .then((response)=>{
             setTasks(response.data);
             setIsLoading(false);
-            console.log(`User tasks ${JSON.stringify(response.data)}`)
         })
         .catch((error)=>{
             console.log(error)})
             setIsLoading(false);
-    },[id])
+    },[props.id])
 
 
     //Add new task
@@ -55,12 +53,12 @@ interface Props {
         })))
     }
        
-    console.log(tasks);
+   
 
     //Add new task with enter key
     const handleNewTaskKeyDown =(e: KeyboardEvent<HTMLInputElement>) =>{
         if(e.key === 'Enter' && newTaskTitle !== ''){
-            setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid(),completed:false,userId:String(id)}]);
+            setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid(),completed:false,userId:String(props.id)}]);
             setNewTaskTitle('');
         }
     }
