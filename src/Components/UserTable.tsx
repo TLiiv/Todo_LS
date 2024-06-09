@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 
 interface Props {
@@ -8,7 +9,8 @@ interface Props {
 
  type User = {
   id: string;
-  name: string
+  name: string;
+  email:string;
 }
 
 const usersUrl = "https://jsonplaceholder.typicode.com/users";
@@ -17,17 +19,6 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
   const [users,setUsers] = useState<User[]>([]);
 
-  // const fetchUserData = async()=> {
-  //   const response = await fetch(usersUrl);
-  //   const jsonData = await response.json();
-  //   setUsers(jsonData);
-  //   console.log(jsonData)
-  // }
-
-    // useEffect(()=>{
-  //   fetchUserData();
-  //   console.log(users);
-  // },[])
 
   useEffect(()=>{
     axios.get(usersUrl)
@@ -51,7 +42,8 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
   const userTableInfo = users.map((user) => (
     <tr key={user.id}>
-      <td>{user.name}</td>
+      <td><Link to={`/todos/${user.id}`}>{user.name}</Link></td>
+      <td>{user.email}</td>
     </tr>
   ));
 
@@ -61,6 +53,7 @@ export const UserTable: React.FC<Props> = (props: Props) => {
         <thead>
           <tr>
             <th>User</th>
+            <th>Email</th>
           </tr>
         </thead>
         <tbody>

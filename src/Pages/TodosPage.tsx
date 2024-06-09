@@ -1,4 +1,4 @@
-import { Todos } from "../Components/Todos";
+import { UserTodos } from "../Components/UserTodos";
 
 export interface ITodosProps {
 }
@@ -6,7 +6,7 @@ export interface ITodosProps {
 export default function TodosPage (props: ITodosProps) {
   return (
     <div>
-      <Todos />
+      <UserTodos />
     </div>
   );
 }

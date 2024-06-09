@@ -1,24 +1,54 @@
 import { nanoid } from 'nanoid';
 import * as React from 'react';
-import { useState, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, ChangeEvent, KeyboardEvent,useEffect } from 'react';
+import  axios  from 'axios';
+import { useParams } from 'react-router-dom';
 
 interface Props {
 }
 
 
  type Task = {
-    //userId: number,
+    userId: string,
     title: string,
     id: string,
     completed: boolean
 }
 
- export const Todos: React.FC<Props> = (props: Props) => {
+
+
+ export const UserTodos: React.FC<Props> = (props: Props) => {
+
+   
+    // Get the userId param from the URL.
+    let { id } = useParams();
+    const todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${id}`;
+    
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const [newTaskTitle, setNewTaskTitle] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+    
+  
+
+
+    //Get user tasks based on userId
+    useEffect(()=>{
+        axios.get(todoUrl)
+        .then((response)=>{
+            setTasks(response.data);
+            setIsLoading(false);
+            console.log(`User tasks ${JSON.stringify(response.data)}`)
+        })
+        .catch((error)=>{
+            console.log(error)})
+            setIsLoading(false);
+    },[id])
+
+  
+
+ 
 
     //Add new task
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const [newTaskTitle, setNewTaskTitle] = useState("")
-
     const handleNewTaskTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setNewTaskTitle(e.target.value);
     };
@@ -62,9 +92,13 @@ interface Props {
 
   return (
     <div>
-        <ul>
-            {taskListItems}
-        </ul>
+     {isLoading ? (
+      <p>Loading tasks...</p>
+    ) : (
+      <ul>
+        {taskListItems}
+      </ul>
+        )}
       <input 
       value={newTaskTitle} 
       onChange={handleNewTaskTitleChange}
