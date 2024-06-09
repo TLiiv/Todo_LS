@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useLocalStorage = <TState>(key: string, newState: TState) => {
 
@@ -10,14 +10,12 @@ const useLocalStorage = <TState>(key: string, newState: TState) => {
         //If statestr excists parse state else use newState
         return stateStr ? JSON.parse(stateStr) as TState : newState;
     });
-    const updateState = (state: TState) => {
-        //take new state, save that to local storage
+    useEffect(()=>{
+        //every time state changes, save that to local storage
         window.localStorage.setItem(key, JSON.stringify(state));
-        //return it to hook
-        setState(state);
-    }
+    },[key,state])
 
-    return [state, updateState];
+    return [state, setState];
 }
 
 export default useLocalStorage;
