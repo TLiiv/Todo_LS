@@ -10,7 +10,6 @@ interface Props {
     id: string;
 }
 
-
  type Task = {
     userId: string,
     title: string,
@@ -69,31 +68,38 @@ interface Props {
 
     //Task complete managment with checkbox value
     const handleTaskCompletedChange = (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
-        setTasks(tasks=>(tasks.map((task)=>{
+        const updatedTasks =(tasks.map((task)=>{
             if(task.id === handledTask.id){ 
                 return {...task,completed: e.target.checked} 
             }return task;
-        })))
+        }))
+        setTasks(updatedTasks);
+        localStorage.setItem(`tasks_${routeUserId}`,JSON.stringify(updatedTasks))
     }
+
+    
        
    
 
     //Add new task with enter key
-    const handleNewTaskKeyDown =(e: KeyboardEvent<HTMLInputElement>) =>{
-        if(e.key === 'Enter' && newTaskTitle !== ''){
-            setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid(),completed:false,userId:String(props.id)}]);
-            setNewTaskTitle('');
-        }
-    }
+    // const handleNewTaskKeyDown =(e: KeyboardEvent<HTMLInputElement>) =>{
+    //     if(e.key === 'Enter' && newTaskTitle !== ''){
+    //         setTasks(tasks =>[...tasks,{title: newTaskTitle,id:nanoid(),completed:false,userId:String(props.id)}]);
+    //         setNewTaskTitle('');
+    //     }
+    // }
+
+    
 
     //Clear completed tasks
-    const handleTaskClearCompletedClick = () => {
-        setTasks(tasks => tasks.filter(task=>!task.completed))
-    }
+    // const handleTaskClearCompletedClick = () => {
+    //     setTasks(tasks => tasks.filter(task=>!task.completed))
+    // }
 
     //Delete tasks
     const handleTaskDeleteClick = (handledTask: Task) =>() =>{
-        setTasks( tasks=> tasks.filter(task => task.id !== handledTask.id))
+        const updatedTasks = tasks.filter(task => task.id !== handledTask.id)
+        setTasks(updatedTasks);
     };
 
     const taskListItems = tasks.map((task)=>
@@ -112,21 +118,20 @@ interface Props {
   return (
     <div>
         <button onClick={handleOnBackClick}>Back to users</button>
-        <ul>{taskListItems}</ul>
-     {/* {isLoading ? (
+     {isLoading ? (
       <p>Loading tasks...</p>
     ) : (
       <ul>
         {taskListItems}
       </ul>
-        )} */}
+        )}
       <input 
       value={newTaskTitle} 
       onChange={handleNewTaskTitleChange}
-      onKeyDown={handleNewTaskKeyDown}
+    //   onKeyDown={handleNewTaskKeyDown}
        />
        <div>
-       <button className='text-primary border-black border-2' onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</button>
+       {/* <button className='text-primary border-black border-2' onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</button> */}
        </div>
     </div>
   );
