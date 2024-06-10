@@ -21,14 +21,17 @@ export const UserTable: React.FC<Props> = (props: Props) => {
   //const [users,setUsers] = useLocalStorage<User[]>('users',[]);
 
 
-  useEffect(()=>{
-    axios.get(usersUrl)
-    .then((response)=>{
+  const getUserData = async () => {
+    try{
+      const response = await axios.get(usersUrl);
       setUsers(response.data);
-    })
-    .catch((error)=>{
+    }catch(error){
       console.log(error);
-    });
+    }
+  }
+
+  useEffect(()=>{
+    getUserData();
   },[]);
 
   //Rerender when users are updated

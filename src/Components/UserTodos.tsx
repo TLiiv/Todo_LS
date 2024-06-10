@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useState, ChangeEvent, KeyboardEvent,useEffect } from 'react';
 import  axios  from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import useLocalStorage from '../Hooks/use-local-storage';
+
 
 
 interface Props {
@@ -19,12 +19,12 @@ interface Props {
 }
 
    export const UserTodos: React.FC<Props> = (props: Props) => {
-    //let { id } = useParams();// Get the userId param from the URL.
-    const todoUrl = `https://jsonplaceholder.typicode.com/todos?userId=${props.id}`;
+    let routeUserId = parseInt(props.id);
+    const tasksUrl = `https://jsonplaceholder.typicode.com/todos?userId=${routeUserId}`;
     
-    //const [tasks, setTasks] = useState<Task[]>([]);
-    //const [tasks, setTasks] = useLocalStorage<Task[]>('tasks',[]);
-    const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', [], "user_");
+    const [tasks, setTasks] = useState<Task[]>([]);
+   
+
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     
@@ -33,51 +33,32 @@ interface Props {
 
 
     //Get user tasks based on userId and save them to local storage
-    useEffect(()=>{
-        axios.get(todoUrl)
-        .then((response)=>{
-            setTasks(response.data);
+    const  getUserTaskData = async()=>{
+        //Check if there are any stored tasks
+        const storedTasks = localStorage.getItem(`tasks_${routeUserId}`);
+        //If true set those tasks to state else get data from API
+        if(storedTasks){
+            setTasks(JSON.parse(storedTasks));
             setIsLoading(false);
-        })
-        .catch((error)=>{
-            console.log(error)})
-            setIsLoading(false);
-    },[props.id])
-
-    // useEffect(() => {
-    //     const storedTasks = localStorage.getItem('tasks'); // Check local storage directly
-    //     if (storedTasks) {
-    //       setTasks(JSON.parse(storedTasks)); // Set tasks from local storage if available
-    //     } else {
-    //       axios.get(todoUrl)
-    //         .then((response) => {
-    //           setTasks(response.data);
-    //           setIsLoading(false);
-    //         })
-    //         .catch((error) => {
-    //           console.log(error);
-    //         })
-    //         .finally(() => setIsLoading(false));
-    //     }
-    //   }, [props.id]);
-    
-      useEffect(() => {
-        const storedTasks = localStorage.getItem(`tasks_${props.id}`); // Check local storage using a unique key per user
-        if (storedTasks) {
-          setTasks(JSON.parse(storedTasks)); // Set tasks from local storage if available
-        } else {
-          axios.get(todoUrl)
-            .then((response) => {
-              setTasks(response.data);
-              localStorage.setItem(`tasks_${props.id}`, JSON.stringify(response.data)); // Store tasks with a user-specific key
-              setIsLoading(false);
-            })
-            .catch((error) => {
-              console.log(error);
-              setIsLoading(false);
-            });
+        }else{
+            try{
+                const response = await axios.get(tasksUrl);
+                setTasks(response.data);
+                localStorage.setItem(`tasks_${routeUserId}`,JSON.stringify(response.data));
+            }catch(error){
+                console.log(error);
+            }finally{
+                setIsLoading(false);
+            }
         }
-      }, [props.id, todoUrl]);
+    }
+
+    useEffect(()=>{
+        getUserTaskData();
+    },[routeUserId])
+
+
+
       
 
 
