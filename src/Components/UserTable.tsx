@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Header } from "./Header";
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -48,20 +49,26 @@ export const UserTable: React.FC<Props> = (props: Props) => {
   const userTableInfo = users.map((user) => (
     <TableRow key={user.id}
     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-      <TableCell><Link to={`/todos/${user.id}`}>{user.name}</Link></TableCell>
+      <TableCell ><Link to={`/todos/${user.id}`}>{user.name}</Link></TableCell>
       <TableCell>{user.email}</TableCell>
       <TableCell>{user.phone.replace(/[.'']/g, '-')}</TableCell>
     </TableRow>
   ));
 
   return (
+    <>
+    <div className="flex justify-center">
+      {/* <div className="">
+        <Header />
+    </div> */}
+    <div className="w-2/4 ">
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center">User</TableCell>
-            <TableCell align="center">Email</TableCell>
-            <TableCell align="center">Phone</TableCell>
+            <TableCell>User</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Phone</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -69,6 +76,9 @@ export const UserTable: React.FC<Props> = (props: Props) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
+    </div>
+    </>
   );
 };
 
