@@ -16,6 +16,7 @@ export default {
       'secondary': '#D1E8E2',
       'background': '#fff', //või #E2E2E2
       'icon': '#19747E',
+
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

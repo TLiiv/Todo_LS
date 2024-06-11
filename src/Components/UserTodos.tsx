@@ -4,6 +4,7 @@ import { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Hero } from './Hero';
+import { UserTodoItem } from './UserTodoItem';
 
 
 
@@ -178,7 +179,20 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 <p>Loading tasks...</p>
             ) : (
                 <ul>
-                    {taskListItems}
+                    {tasks.map((task)=>(
+                        <UserTodoItem 
+                            key={task.id}
+                            task={task}
+                            isEditing={editTask === task.id}
+                            editTaskTitle={editTaskTitle}
+                            handleTaskCompletedChange={handleTaskCompletedChange}
+                            handleTaskDeleteClick={handleTaskDeleteClick}
+                            handleEditButtonClick={handleEditButtonClick}
+                            handleEditTaskChange={handleEditTaskChange}
+                            handleEditTaskSave={handleEditTaskSave}
+                            handleEditTaskCancel={handleEditTaskCancel}
+                        />
+                    ))}
                 </ul>
             )}
             <input
@@ -187,7 +201,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 onKeyDown={handleNewTaskKeyDown}
             />
             <div>
-                <button className='text-primary border-black border-2' onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</button>
+                <button className='text-primary border-primary border-2' onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</button>
             </div>
         </div>
         </>
