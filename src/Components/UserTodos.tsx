@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Hero } from './Hero';
 
 
 
@@ -26,6 +27,13 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [editTask, setEditTask] = useState<string | null>(null);
     const [editTaskTitle, setEditTaskTitle] = useState("");
+
+
+    
+    //Task tracking for Hero comp
+    const completedTasks = tasks.filter(task => task.completed).length
+    const totalTasks = tasks.length;
+    
 
     //Get user tasks based on userId and save them to local storage
     const getUserTaskData = async () => {
@@ -159,6 +167,11 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
       );
 
     return (
+        <>
+        <Hero 
+            completedTasks={completedTasks}
+            totalTasks={totalTasks}
+        />
         <div>
             <button onClick={handleOnBackClick}>Back to users</button>
             {isLoading ? (
@@ -177,6 +190,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 <button className='text-primary border-black border-2' onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</button>
             </div>
         </div>
+        </>
     );
 }
 
