@@ -12,10 +12,10 @@ export default {
       xl: '1440px',
     },
     colors: {
-      'primary': '#A9D6E5',
-      'secondary': '#D1E8E2',
-      'background': '#fff', //või #E2E2E2
-      'icon': '#19747E',
+      'primary': '#213555',
+      'secondary': '#4F709C',
+      'background': '#F0F0F0', //või #E2E2E2
+      'hover': '#E5D283',
 
     },
     fontFamily: {

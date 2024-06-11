@@ -10,6 +10,8 @@ import { UserTodoItem } from './UserTodoItem';
 
 interface Props {
     id: string;
+    updateNotCompletedTasks: (userId: string, notCompletedTasks: number) => void;
+    
 }
 
 type Task = {
@@ -32,8 +34,9 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
 
     
     //Task tracking for Hero comp
-    const completedTasks = tasks.filter(task => task.completed).length
+    const completedTasks = tasks.filter(task => task.completed).length;
     const totalTasks = tasks.length;
+    
     
 
     //Get user tasks based on userId and save them to local storage
@@ -140,32 +143,6 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         navigate("/");
     }
 
-    // const taskListItems = tasks.map((task) =>
-    //     <li key={task.id}>
-    //         <input type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
-    //         {task.title}
-    //         {/* <button onClick={handleEditButtonClick}>Edit</button> */}
-    //         <button onClick={handleTaskDeleteClick(task)}>Delete</button>
-    //     </li>
-    // )
-    const taskListItems = tasks.map((task) =>
-        <li key={task.id}>
-          <input type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
-          {editTask === task.id ? (
-            <>
-              <input type="text" value={editTaskTitle} onChange={handleEditTaskChange} />
-              <button onClick={handleEditTaskSave(task)}>Save</button>
-              <button onClick={handleEditTaskCancel}>Cancel</button>
-            </>
-          ) : (
-            <>
-              {task.title}
-              <button onClick={handleEditButtonClick(task)}>Edit</button>
-              <button onClick={handleTaskDeleteClick(task)}>Delete</button>
-            </>
-          )}
-        </li>
-      );
 
     return (
         <>
