@@ -7,7 +7,7 @@ import { Hero } from './Hero';
 import { UserTodoItem } from './UserTodoItem';
 
 
-import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress } from '@mui/material';
+import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress, Box } from '@mui/material';
 import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
 
 
@@ -152,19 +152,19 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
 
     return (
         <>
-
+         <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
             <Hero
                 completedTasks={completedTasks}
                 totalTasks={totalTasks}
+                handleTaskClearCompletedClick={handleTaskClearCompletedClick}
             />
             <Container>
-                <div>
-                    <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
+                <Box>
                     {isLoading ? (
                         <CircularProgress />
                     ) : (
+                        
                         <List>
-
                             {tasks.map((task) => (
                                 <UserTodoItem
                                     key={task.id}
@@ -181,8 +181,6 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                             ))}
 
                         </List>
-
-
                     )}
                     <TextField
                         value={newTaskTitle}
@@ -191,10 +189,10 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                         variant="outlined"
                         size="small">
                     </TextField>
-                    <div>
+                    {/* <div>
                         <Button  variant="contained" color="primary" onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</Button>
-                    </div>
-                </div>
+                    </div> */}
+                </Box>
             </Container>
         </>
     );
