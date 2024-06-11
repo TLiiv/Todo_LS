@@ -9,7 +9,7 @@ export const Hero: React.FC<Props>= ({completedTasks,totalTasks}) => {
         <>
     <section>
         <p>Tasks done</p>
-    <div>{completedTasks}/{totalTasks}</div>
+        <div>{completedTasks}/{totalTasks}</div>
     </section>
     </>)
 }

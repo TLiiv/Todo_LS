@@ -7,11 +7,16 @@ import { Hero } from './Hero';
 import { UserTodoItem } from './UserTodoItem';
 
 
+import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress } from '@mui/material';
+import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
+
+
+
 
 interface Props {
     id: string;
-    updateNotCompletedTasks: (userId: string, notCompletedTasks: number) => void;
-    
+
+
 }
 
 type Task = {
@@ -32,12 +37,12 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
     const [editTaskTitle, setEditTaskTitle] = useState("");
 
 
-    
+
     //Task tracking for Hero comp
     const completedTasks = tasks.filter(task => task.completed).length;
     const totalTasks = tasks.length;
-    
-    
+
+
 
     //Get user tasks based on userId and save them to local storage
     const getUserTaskData = async () => {
@@ -70,16 +75,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         setNewTaskTitle(e.target.value);
     };
 
-    //Task complete managment with checkbox value
-    const handleTaskCompletedChange = (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
-        const updatedTasks = (tasks.map((task) => {
-            if (task.id === handledTask.id) {
-                return { ...task, completed: e.target.checked }
-            } return task;
-        }))
-        setTasks(updatedTasks);
-        localStorage.setItem(`tasks_${routeUserId}`, JSON.stringify(updatedTasks))
-    }
+ 
 
     //Add new task with enter key
     const handleNewTaskKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -94,6 +90,16 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         }
     };
 
+    //Task complete managment with checkbox value
+    const handleTaskCompletedChange = (handledTask: Task) => (e: ChangeEvent<HTMLInputElement>) => {
+        const updatedTasks = (tasks.map((task) => {
+            if (task.id === handledTask.id) {
+                return { ...task, completed: e.target.checked }
+            } return task;
+        }))
+        setTasks(updatedTasks);
+        localStorage.setItem(`tasks_${routeUserId}`, JSON.stringify(updatedTasks))
+    }
 
     //Clear completed tasks
     const handleTaskClearCompletedClick = () => {
@@ -113,29 +119,29 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
     const handleEditButtonClick = (task: Task) => () => {
         setEditTask(task.id);
         setEditTaskTitle(task.title);
-      }
+    }
 
-      const handleEditTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleEditTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEditTaskTitle(e.target.value);
-      }
-    
-      const handleEditTaskSave = (task: Task) => () => {
+    }
+
+    const handleEditTaskSave = (task: Task) => () => {
         const updatedTasks = tasks.map(t => {
-          if (t.id === task.id) {
-            return { ...t, title: editTaskTitle };
-          }
-          return t;
+            if (t.id === task.id) {
+                return { ...t, title: editTaskTitle };
+            }
+            return t;
         });
         setTasks(updatedTasks);
         localStorage.setItem(`tasks_${routeUserId}`, JSON.stringify(updatedTasks));
         setEditTask(null);
-      }
+    }
 
 
-  const handleEditTaskCancel = () => {
-    setEditTask(null);
-    setEditTaskTitle("");
-  }
+    const handleEditTaskCancel = () => {
+        setEditTask(null);
+        setEditTaskTitle("");
+    }
 
     //Back button
     const navigate = useNavigate();
@@ -146,41 +152,50 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
 
     return (
         <>
-        <Hero 
-            completedTasks={completedTasks}
-            totalTasks={totalTasks}
-        />
-        <div>
-            <button onClick={handleOnBackClick}>Back to users</button>
-            {isLoading ? (
-                <p>Loading tasks...</p>
-            ) : (
-                <ul>
-                    {tasks.map((task)=>(
-                        <UserTodoItem 
-                            key={task.id}
-                            task={task}
-                            isEditing={editTask === task.id}
-                            editTaskTitle={editTaskTitle}
-                            handleTaskCompletedChange={handleTaskCompletedChange}
-                            handleTaskDeleteClick={handleTaskDeleteClick}
-                            handleEditButtonClick={handleEditButtonClick}
-                            handleEditTaskChange={handleEditTaskChange}
-                            handleEditTaskSave={handleEditTaskSave}
-                            handleEditTaskCancel={handleEditTaskCancel}
-                        />
-                    ))}
-                </ul>
-            )}
-            <input
-                value={newTaskTitle}
-                onChange={handleNewTaskTitleChange}
-                onKeyDown={handleNewTaskKeyDown}
+
+            <Hero
+                completedTasks={completedTasks}
+                totalTasks={totalTasks}
             />
-            <div>
-                <button className='text-primary border-primary border-2' onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</button>
-            </div>
-        </div>
+            <Container>
+                <div>
+                    <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
+                    {isLoading ? (
+                        <CircularProgress />
+                    ) : (
+                        <List>
+
+                            {tasks.map((task) => (
+                                <UserTodoItem
+                                    key={task.id}
+                                    task={task}
+                                    isEditing={editTask === task.id}
+                                    editTaskTitle={editTaskTitle}
+                                    handleTaskCompletedChange={handleTaskCompletedChange}
+                                    handleTaskDeleteClick={handleTaskDeleteClick}
+                                    handleEditButtonClick={handleEditButtonClick}
+                                    handleEditTaskChange={handleEditTaskChange}
+                                    handleEditTaskSave={handleEditTaskSave}
+                                    handleEditTaskCancel={handleEditTaskCancel}
+                                />
+                            ))}
+
+                        </List>
+
+
+                    )}
+                    <TextField
+                        value={newTaskTitle}
+                        onChange={handleNewTaskTitleChange}
+                        onKeyDown={handleNewTaskKeyDown}
+                        variant="outlined"
+                        size="small">
+                    </TextField>
+                    <div>
+                        <Button  variant="contained" color="primary" onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</Button>
+                    </div>
+                </div>
+            </Container>
         </>
     );
 }

@@ -1,5 +1,7 @@
-
 import { ChangeEvent } from "react";
+
+import { TextField,ListItem, IconButton} from '@mui/material';
+import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
 
 interface UserTodoItemProps {
     task: Task;
@@ -24,24 +26,27 @@ type Task = {
 
 export const UserTodoItem: React.FC<UserTodoItemProps> =
     ({ task, isEditing, editTaskTitle, handleTaskCompletedChange, handleTaskDeleteClick, handleEditButtonClick, handleEditTaskChange, handleEditTaskSave, handleEditTaskCancel }) => {
-
-
         return (
-            <li>
+            
+            <ListItem divider>
+                
                 <input type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
                 {isEditing ? (
                     <>
-                        <input type="text" value={editTaskTitle} onChange={handleEditTaskChange} />
-                        <button onClick={handleEditTaskSave(task)}>Save</button>
-                        <button onClick={handleEditTaskCancel}>Cancel</button>
+                        <TextField type="text" value={editTaskTitle} onChange={handleEditTaskChange}  size="small"
+                    style={{ marginRight: '10px' }}/>
+                        <IconButton onClick={handleEditTaskSave(task)}><Save /></IconButton>
+                        <IconButton onClick={handleEditTaskCancel}> <Cancel /></IconButton>
                     </>
                 ) : (
                     <>
                         {task.title}
-                        <button onClick={handleEditButtonClick(task)}>Edit</button>
-                        <button onClick={handleTaskDeleteClick(task)}>Delete</button>
+                        <IconButton onClick={handleEditButtonClick(task)}><Edit /></IconButton>
+                        <IconButton onClick={handleTaskDeleteClick(task)}><Delete /></IconButton>
                     </>
                 )}
-            </li>
+               
+            </ListItem>
+            
         );
 }
