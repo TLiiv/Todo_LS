@@ -80,10 +80,10 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-{/* <Layout > */}
-<main className="w-full">
-  <Header/>
-    <div className="relative w-full flex flex-col shadow-2xl mb-6 rounded-b-xl">
+<Header/>
+<main className="w-full max-w-7xl px-6 bg-background shadow-2xl mb-6 rounded-b-xl mx-auto">
+  {/* <Header/> */}
+    <div className="relative w-full flex flex-col ">
     <div className="relative flex flex-col self-center">
       <table className="table-auto mx-auto">
         <thead>
@@ -101,7 +101,7 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
     </div>
     </main>
-    {/* </Layout> */}
+    
     
     </>
   );

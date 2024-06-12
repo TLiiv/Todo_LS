@@ -28,7 +28,7 @@ export const UserTodoItem: React.FC<UserTodoItemProps> =
     ({ task, isEditing, editTaskTitle, handleTaskCompletedChange, handleTaskDeleteClick, handleEditButtonClick, handleEditTaskChange, handleEditTaskSave, handleEditTaskCancel }) => {
         return (
             
-            <ListItem divider>
+            <li>
                 
                 <input type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
                 {isEditing ? (
@@ -46,7 +46,7 @@ export const UserTodoItem: React.FC<UserTodoItemProps> =
                     </>
                 )}
                
-            </ListItem>
+            </li>
             
         );
 }

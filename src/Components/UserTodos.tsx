@@ -158,13 +158,13 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 totalTasks={totalTasks}
                 handleTaskClearCompletedClick={handleTaskClearCompletedClick}
             />
-            <Container>
-                <Box>
+            <main className="w-full max-w-7xl px-6 bg-background shadow-2xl mb-6 rounded-b-xl mx-auto">
+           
                     {isLoading ? (
                         <CircularProgress />
                     ) : (
-                        
-                        <List>
+                       <div>
+                        <ul bg-background overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16>
                             {tasks.map((task) => (
                                 <UserTodoItem
                                     key={task.id}
@@ -180,7 +180,8 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                                 />
                             ))}
 
-                        </List>
+                        </ul>
+                        </div> 
                     )}
                     <TextField
                         value={newTaskTitle}
@@ -188,13 +189,10 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                         onKeyDown={handleNewTaskKeyDown}
                         variant="outlined"
                         size="small">
-                    </TextField>
-                    {/* <div>
-                        <Button  variant="contained" color="primary" onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</Button>
-                    </div> */}
-                </Box>
-            </Container>
+                        </TextField>
+            </main>         
         </>
+        
     );
 }
 
