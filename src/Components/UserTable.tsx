@@ -71,7 +71,7 @@ export const UserTable: React.FC<Props> = (props: Props) => {
   },[users])
 
   const userTableInfo = users.map((user) => (
-    <tr key={user.id}>
+    <tr key={user.id} className="border border-background border-solid border-l-0 border-r-0 border-t-0" >
       <td className="text-lg px-6 py-3 text-primary hover:text-hover"><Link to={`/todos/${user.id}`}>{user.name}</Link></td>
       <td className="text-lg px-6 py-3 text-primary">{user.email}</td>
       <td className="text-lg px-6 py-3 text-primary">{user.phone.replace(/[.'']/g, '-')}</td>
@@ -80,14 +80,14 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-<Layout >
-<main className="w-1/2">
+{/* <Layout > */}
+<main className="w-full">
   <Header/>
     <div className="relative w-full flex flex-col shadow-2xl mb-6 rounded-b-xl">
     <div className="relative flex flex-col self-center">
       <table className="table-auto mx-auto">
         <thead>
-          <tr className="border border-solid border-l-0 border-r-0 border-t-0">
+          <tr className="border border-background border-solid border-l-0 border-r-0 border-t-0">
             <th className="text-2xl px-6 py-3 text-secondary">User</th>
             <th className="text-2xl px-6 py-3 text-secondary">Email</th>
             <th className="text-2xl px-6 py-3 text-secondary">Phone</th>
@@ -101,7 +101,7 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
     </div>
     </main>
-    </Layout>
+    {/* </Layout> */}
     
     </>
   );
