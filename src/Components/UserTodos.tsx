@@ -152,45 +152,51 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
 
     return (
         <>
+           
+        <div>
          <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
             <Hero
                 completedTasks={completedTasks}
                 totalTasks={totalTasks}
                 handleTaskClearCompletedClick={handleTaskClearCompletedClick}
-            />
-            <main className="w-full max-w-7xl px-6 bg-background shadow-2xl mb-6 rounded-b-xl mx-auto">
-           
-                    {isLoading ? (
-                        <CircularProgress />
-                    ) : (
-                       <div>
-                        <ul bg-background overflow-hidden sm:rounded-md max-w-sm mx-auto mt-16>
-                            {tasks.map((task) => (
-                                <UserTodoItem
-                                    key={task.id}
-                                    task={task}
-                                    isEditing={editTask === task.id}
-                                    editTaskTitle={editTaskTitle}
-                                    handleTaskCompletedChange={handleTaskCompletedChange}
-                                    handleTaskDeleteClick={handleTaskDeleteClick}
-                                    handleEditButtonClick={handleEditButtonClick}
-                                    handleEditTaskChange={handleEditTaskChange}
-                                    handleEditTaskSave={handleEditTaskSave}
-                                    handleEditTaskCancel={handleEditTaskCancel}
-                                />
-                            ))}
+                />
+                </div>
+              <main className="w-4/5 max-w-7xl px-6 bg-background  mb-6 rounded-b-xl mx-auto">
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <table className="flex flex-wrap w-full">
+          {tasks.map((task) => (
+              <thead className="p-2 sm:w-1/2 w-full" key={task.id}>
+            <tr className="">
 
-                        </ul>
-                        </div> 
-                    )}
-                    <TextField
-                        value={newTaskTitle}
-                        onChange={handleNewTaskTitleChange}
-                        onKeyDown={handleNewTaskKeyDown}
-                        variant="outlined"
-                        size="small">
-                        </TextField>
-            </main>         
+              <UserTodoItem
+                task={task}
+                isEditing={editTask === task.id}
+                editTaskTitle={editTaskTitle}
+                handleTaskCompletedChange={handleTaskCompletedChange}
+                handleTaskDeleteClick={handleTaskDeleteClick}
+                handleEditButtonClick={handleEditButtonClick}
+                handleEditTaskChange={handleEditTaskChange}
+                handleEditTaskSave={handleEditTaskSave}
+                handleEditTaskCancel={handleEditTaskCancel}
+                      />
+                       </tr>
+            </thead>
+          ))}
+        </table>
+      )}
+      <div className="mt-4">
+        <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+            placeholder='Add new task'
+            type='text'
+            value={newTaskTitle}
+            onChange={handleNewTaskTitleChange}
+            onKeyDown={handleNewTaskKeyDown}            
+        />
+      </div>
+    </main>
         </>
         
     );

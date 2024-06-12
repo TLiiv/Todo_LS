@@ -82,12 +82,11 @@ export const UserTable: React.FC<Props> = (props: Props) => {
     <>
 <Header/>
 <main className="w-full max-w-7xl px-6 bg-background shadow-2xl mb-6 rounded-b-xl mx-auto">
-  {/* <Header/> */}
     <div className="relative w-full flex flex-col ">
     <div className="relative flex flex-col self-center">
       <table className="table-auto mx-auto">
         <thead>
-          <tr className="border border-background border-solid border-l-0 border-r-0 border-t-0">
+          <tr className="border border-grey-600 border-solid border-l-0 border-r-0 border-t-0">
             <th className="text-2xl px-6 py-3 text-secondary">User</th>
             <th className="text-2xl px-6 py-3 text-secondary">Email</th>
             <th className="text-2xl px-6 py-3 text-secondary">Phone</th>
