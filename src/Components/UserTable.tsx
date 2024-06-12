@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Layout from "./Layout";
 
 
 // {/* <div className="flex justify-center">
@@ -71,24 +72,25 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
   const userTableInfo = users.map((user) => (
     <tr key={user.id}>
-      <td className="text-md px-6 py-3"><Link to={`/todos/${user.id}`}>{user.name}</Link></td>
-      <td className="text-md px-6 py-3">{user.email}</td>
-      <td className="text-md px-6 py-3">{user.phone.replace(/[.'']/g, '-')}</td>
+      <td className="text-lg px-6 py-3 text-primary hover:text-hover"><Link to={`/todos/${user.id}`}>{user.name}</Link></td>
+      <td className="text-lg px-6 py-3 text-primary">{user.email}</td>
+      <td className="text-lg px-6 py-3 text-primary">{user.phone.replace(/[.'']/g, '-')}</td>
     </tr>
   ));
 
   return (
     <>
-<main className="mx-auto">
+<Layout >
+<main className="w-1/2">
   <Header/>
-    <div className="relative w-2/4 flex flex-col shadow-2xl mb-6 rounded-b-xl">
+    <div className="relative w-full flex flex-col shadow-2xl mb-6 rounded-b-xl">
     <div className="relative flex flex-col self-center">
-      <table className="table-auto">
+      <table className="table-auto mx-auto">
         <thead>
           <tr className="border border-solid border-l-0 border-r-0 border-t-0">
-            <th className="text-md px-6 py-3">User</th>
-            <th className="text-md px-6 py-3">Email</th>
-            <th className="text-md px-6 py-3">Phone</th>
+            <th className="text-2xl px-6 py-3 text-secondary">User</th>
+            <th className="text-2xl px-6 py-3 text-secondary">Email</th>
+            <th className="text-2xl px-6 py-3 text-secondary">Phone</th>
           </tr>
         </thead>
         <tbody>
@@ -96,8 +98,10 @@ export const UserTable: React.FC<Props> = (props: Props) => {
         </tbody>
       </table>
       </div>
+
     </div>
     </main>
+    </Layout>
     
     </>
   );
