@@ -164,9 +164,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 handleTaskClearCompletedClick={handleTaskClearCompletedClick}
                 />
         </div>
-              
-            <main className=" w-full mx-auto p-4 rounded-lg shadow-md overflow-hidden  md:min-w-[600px]">
-                  <div className="mt-4">
+                                <div className="mt-4">
         <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
             placeholder='Add new task'
@@ -176,12 +174,14 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
             onKeyDown={handleNewTaskKeyDown}            
         />
       </div>
+            <main className="w-full mx-auto p-4 rounded-lg shadow-md overflow-hidden  md:min-w-[600px]">
+
       {isLoading ? (
         <CircularProgress />
       ) : (     
         <div className="relative w-full flex flex-col ">
-            <div className="relative flex flex-col self-center">
-            <table className="table-auto mx-auto">
+            <div className="relative flex flex-col self-center w-full">
+            <table className="table-auto w-full mx-auto">
           {sortedTasks.map((task) => (
               <UserTodoItem
                 task={task}
