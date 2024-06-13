@@ -156,8 +156,12 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
     return (
         <>
            
-        <div>
-         <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
+            <div>
+                <button
+                    onClick={handleOnBackClick}
+                    className="bg-secondary hover:bg-background hover:text-secondary text-white font-bold py-2 px-4 border transition rounded-full my-4">
+                    Back To Users
+            </button>
             <Hero
                 completedTasks={completedTasks}
                 totalTasks={totalTasks}
@@ -170,7 +174,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
             placeholder='Add new task'
             type='text'
             value={newTaskTitle}
-            onChange={handleNewTaskTitleChange}
+            onChange={handleNewTaskTitleChange}s
             onKeyDown={handleNewTaskKeyDown}            
         />
       </div>

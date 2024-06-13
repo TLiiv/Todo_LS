@@ -72,18 +72,19 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
   const userTableInfo = users.map((user) => (
     <tr key={user.id} className="border border-background border-solid border-l-0 border-r-0 border-t-0" >
-      <td className="text-lg px-6 py-3 text-primary hover:text-hover"><Link to={`/todos/${user.id}`}>{user.name}</Link></td>
-      <td className="text-lg px-6 py-3 text-primary">{user.email}</td>
-      <td className="text-lg px-6 py-3 text-primary">{user.phone.replace(/[.'']/g, '-')}</td>
+      <td className="text-xl px-6 py-3 text-primary hover:text-hover"><Link to={`/todos/${user.id}`}>{user.name}</Link></td>
+      <td className="text-xl px-6 py-3 text-primary">{user.email}</td>
+      <td className="text-xl px-6 py-3 text-primary">{user.phone.replace(/[.'']/g, '-')}</td>
     </tr>
   ));
 
   return (
     <>
-<Header/>
-<main className="w-full max-w-7xl px-6 bg-background shadow-2xl mb-6 rounded-b-xl mx-auto">
+      <Header />
+      <div className="py-4"></div>
+      <main className="w-full max-w-7xl px-6  shadow-xl mb-6 rounded-xl mx-auto ">
     <div className="relative w-full flex flex-col ">
-    <div className="relative flex flex-col self-center">
+    <div className="relative flex flex-col self-center ">
       <table className="table-auto mx-auto">
         <thead>
           <tr className="border border-grey-600 border-solid border-l-0 border-r-0 border-t-0">
