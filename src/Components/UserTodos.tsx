@@ -9,6 +9,8 @@ import { UserTodoItem } from './UserTodoItem';
 
 import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress, Box } from '@mui/material';
 import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
+import { DataGrid } from '@mui/x-data-grid';
+
 
 
 
@@ -160,14 +162,16 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 totalTasks={totalTasks}
                 handleTaskClearCompletedClick={handleTaskClearCompletedClick}
                 />
-                </div>
+        </div>
+              
               <main className="bg-background w-full mx-auto  rounded-lg shadow-md overflow-hidden">
       {isLoading ? (
         <CircularProgress />
       ) : (
         
-            <div className="relative flex flex-col">
-        
+        <div className="relative w-full flex flex-col ">
+            <div className="relative flex flex-col self-center">
+            <table className="table-auto mx-auto">
           {tasks.map((task) => (
             
           
@@ -186,8 +190,9 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                       
           
           ))}
+          </table>
         </div>
-       
+        </div>
       )}
       <div className="mt-4">
         <input
@@ -204,4 +209,60 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         
     );
 }
+
+
+// return (
+//     <>
+       
+//     <div>
+//      <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
+//         <Hero
+//             completedTasks={completedTasks}
+//             totalTasks={totalTasks}
+//             handleTaskClearCompletedClick={handleTaskClearCompletedClick}
+//             />
+//             </div>
+//           <main className="bg-background w-full mx-auto  rounded-lg shadow-md overflow-hidden">
+//   {isLoading ? (
+//     <CircularProgress />
+//   ) : (
+    
+//         <div className="relative flex flex-col">
+    
+//       {tasks.map((task) => (
+        
+      
+//           <UserTodoItem
+//             task={task}
+//             isEditing={editTask === task.id}
+//             editTaskTitle={editTaskTitle}
+//             handleTaskCompletedChange={handleTaskCompletedChange}
+//             handleTaskDeleteClick={handleTaskDeleteClick}
+//             handleEditButtonClick={handleEditButtonClick}
+//             handleEditTaskChange={handleEditTaskChange}
+//             handleEditTaskSave={handleEditTaskSave}
+//             handleEditTaskCancel={handleEditTaskCancel}
+//             key={task.id}
+//                   />
+                  
+      
+//       ))}
+//     </div>
+   
+//   )}
+//   <div className="mt-4">
+//     <input
+//         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+//         placeholder='Add new task'
+//         type='text'
+//         value={newTaskTitle}
+//         onChange={handleNewTaskTitleChange}
+//         onKeyDown={handleNewTaskKeyDown}            
+//     />
+//   </div>
+// </main>
+//     </>
+    
+// );
+// }
 

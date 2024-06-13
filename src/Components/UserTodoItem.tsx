@@ -28,56 +28,64 @@ export const UserTodoItem: React.FC<UserTodoItemProps> =
     ({ task, isEditing, editTaskTitle, handleTaskCompletedChange, handleTaskDeleteClick, handleEditButtonClick, handleEditTaskChange, handleEditTaskSave, handleEditTaskCancel }) => {
         return (     
 
-            <div className="px-6 py-4" >
+            <tbody >
 
-                <div className="flex space-x-2   items-center float-right ">
+                <tr className="border border-background border-solid border-l-0 border-r-0 border-t-0">
                     <input type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
                     {isEditing ? (
                         <>
+                        <td>
                             <input
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
                                 type="text" value={editTaskTitle} onChange={handleEditTaskChange} />
                             <IconButton className="py-1" onClick={handleEditTaskSave(task)}><Save /></IconButton>
                             <IconButton className="py-1" onClick={handleEditTaskCancel}> <Cancel /></IconButton>
+                            </td>
                         </>
                     ) : (
                         <>
-                            <div className="float-start">
-                                <h3 className="  text-lg leading-6 font-medium text-primary"> {task.title}</h3>
-                            </div>
-                            <div >
+                        <td className="text-lg px-6 py-3 text-primary"><h3 className="  text-lg leading-6 font-medium text-primary"> {task.title}</h3></td>
+                            <td >
                                 <IconButton className="py-1 " onClick={handleEditButtonClick(task)} ><Edit /></IconButton>
 
                                 <IconButton className="py-1 " onClick={handleTaskDeleteClick(task)} ><Delete /></IconButton>
-                            </div>
+                            </td>
                         </>
                     )}
-                </div>
-            </div>
+                </tr>
+            </tbody>
 
         );
     }
 
-  
-            // <div>    
-            //     <div className="w-full">
-            //         <div className="bg-background rounded flex p-2 h-full w-full items-center">
-            //     <input  type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
-            //     {isEditing ? (
-            //         <>
-            //                     <input
-            //                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
-            //                         type="text" value={editTaskTitle} onChange={handleEditTaskChange} /> 
-            //             <IconButton onClick={handleEditTaskSave(task)}><Save /></IconButton>
-            //             <IconButton onClick={handleEditTaskCancel}> <Cancel /></IconButton>
-            //         </>
-            //     ) : (
-            //         <>
-            //            <h3 className="text-lg leading-6 font-medium text-primary mr2"> {task.title}</h3>
-            //             <IconButton onClick={handleEditButtonClick(task)} ><Edit /></IconButton>
-            //             <IconButton onClick={handleTaskDeleteClick(task)} className="self-end"><Delete /></IconButton>
-            //         </>
-            //             )}
-            //             </div>
-            //    </div>
-            // </div>
+//     return (     
+
+//         <div className="px-6 py-4" >
+
+//             <div className="flex space-x-2   items-center float-right ">
+//                 <input type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
+//                 {isEditing ? (
+//                     <>
+//                         <input
+//                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+//                             type="text" value={editTaskTitle} onChange={handleEditTaskChange} />
+//                         <IconButton className="py-1" onClick={handleEditTaskSave(task)}><Save /></IconButton>
+//                         <IconButton className="py-1" onClick={handleEditTaskCancel}> <Cancel /></IconButton>
+//                     </>
+//                 ) : (
+//                     <>
+//                         <div className="float-start">
+//                             <h3 className="  text-lg leading-6 font-medium text-primary"> {task.title}</h3>
+//                         </div>
+//                         <div >
+//                             <IconButton className="py-1 " onClick={handleEditButtonClick(task)} ><Edit /></IconButton>
+
+//                             <IconButton className="py-1 " onClick={handleTaskDeleteClick(task)} ><Delete /></IconButton>
+//                         </div>
+//                     </>
+//                 )}
+//             </div>
+//         </div>
+
+//     );
+// }
