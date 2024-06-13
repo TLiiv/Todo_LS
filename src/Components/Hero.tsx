@@ -22,7 +22,7 @@ export const Hero: React.FC<Props>= ({completedTasks,totalTasks,handleTaskClearC
         <Button
         onClick={handleTaskClearCompletedClick}
         borderRadius="1.75rem"
-        className="bg-background hover:text-primary  text-secondary text-lg  font-medium border-neutral-200 p-1 max-w-sm"
+        className="bg-background hover:text-primary  text-secondary text-lg  font-medium border-neutral-200 p-1 max-w-sm "
         >Clear Completed</Button>
       </div>
     </div>

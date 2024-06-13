@@ -159,7 +159,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
             <div>
                 <button
                     onClick={handleOnBackClick}
-                    className="bg-secondary hover:bg-background hover:text-secondary text-white font-bold py-2 px-4 border transition rounded-full my-4">
+                    className="bg-secondary hover:bg-background hover:text-secondary text-white font-bold py-2 px-4 border transition rounded-full my-4 focus:outline-none focus:border-secondary">
                     Back To Users
             </button>
             <Hero
@@ -168,13 +168,13 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 handleTaskClearCompletedClick={handleTaskClearCompletedClick}
                 />
         </div>
-                                <div className="mt-4">
+                                <div className="my-2">
         <input
-            className="bg-background border border-primary text-primary text-sm rounded-lg  block w-full p-2.5"
+            className="bg-background border text-primary text-sm rounded-lg shadow-md block w-full p-2.5 focus:outline-none focus:border-secondary"
             placeholder='Add new task'
             type='text'
             value={newTaskTitle}
-            onChange={handleNewTaskTitleChange}s
+            onChange={handleNewTaskTitleChange}
             onKeyDown={handleNewTaskKeyDown}            
         />
       </div>
@@ -212,58 +212,5 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
 }
 
 
-// return (
-//     <>
-       
-//     <div>
-//      <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
-//         <Hero
-//             completedTasks={completedTasks}
-//             totalTasks={totalTasks}
-//             handleTaskClearCompletedClick={handleTaskClearCompletedClick}
-//             />
-//             </div>
-//           <main className="bg-background w-full mx-auto  rounded-lg shadow-md overflow-hidden">
-//   {isLoading ? (
-//     <CircularProgress />
-//   ) : (
-    
-//         <div className="relative flex flex-col">
-    
-//       {tasks.map((task) => (
-        
-      
-//           <UserTodoItem
-//             task={task}
-//             isEditing={editTask === task.id}
-//             editTaskTitle={editTaskTitle}
-//             handleTaskCompletedChange={handleTaskCompletedChange}
-//             handleTaskDeleteClick={handleTaskDeleteClick}
-//             handleEditButtonClick={handleEditButtonClick}
-//             handleEditTaskChange={handleEditTaskChange}
-//             handleEditTaskSave={handleEditTaskSave}
-//             handleEditTaskCancel={handleEditTaskCancel}
-//             key={task.id}
-//                   />
-                  
-      
-//       ))}
-//     </div>
-   
-//   )}
-//   <div className="mt-4">
-//     <input
-//         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
-//         placeholder='Add new task'
-//         type='text'
-//         value={newTaskTitle}
-//         onChange={handleNewTaskTitleChange}
-//         onKeyDown={handleNewTaskKeyDown}            
-//     />
-//   </div>
-// </main>
-//     </>
-    
-// );
-// }
+
 
