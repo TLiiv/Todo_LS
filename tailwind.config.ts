@@ -25,7 +25,7 @@ export default {
     },
     extend: {
       colors: {
-        'primary': '#213555',
+        'primary': '#213555', //#213555
         'secondary': '#1679AB', //or  #1679AB
         'background': '#F0F0F0', // or #E2E2E2
         'hover': '#E5D283',

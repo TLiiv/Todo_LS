@@ -9,7 +9,7 @@ import { UserTodoItem } from './UserTodoItem';
 
 import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress, Box } from '@mui/material';
 import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
-import { DataGrid } from '@mui/x-data-grid';
+
 
 
 
@@ -151,6 +151,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         navigate("/");
     }
 
+    const sortedTasks = tasks.slice().sort((a,b) => Number(a.completed) - Number(b.completed));
 
     return (
         <>
@@ -164,17 +165,24 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 />
         </div>
               
-              <main className="bg-background w-full mx-auto  rounded-lg shadow-md overflow-hidden">
+            <main className=" w-full mx-auto p-4 rounded-lg shadow-md overflow-hidden  md:min-w-[600px]">
+                  <div className="mt-4">
+        <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+            placeholder='Add new task'
+            type='text'
+            value={newTaskTitle}
+            onChange={handleNewTaskTitleChange}
+            onKeyDown={handleNewTaskKeyDown}            
+        />
+      </div>
       {isLoading ? (
         <CircularProgress />
-      ) : (
-        
+      ) : (     
         <div className="relative w-full flex flex-col ">
             <div className="relative flex flex-col self-center">
             <table className="table-auto mx-auto">
-          {tasks.map((task) => (
-            
-          
+          {sortedTasks.map((task) => (
               <UserTodoItem
                 task={task}
                 isEditing={editTask === task.id}
@@ -187,23 +195,12 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 handleEditTaskCancel={handleEditTaskCancel}
                 key={task.id}
                       />
-                      
-          
           ))}
           </table>
         </div>
         </div>
       )}
-      <div className="mt-4">
-        <input
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
-            placeholder='Add new task'
-            type='text'
-            value={newTaskTitle}
-            onChange={handleNewTaskTitleChange}
-            onKeyDown={handleNewTaskKeyDown}            
-        />
-      </div>
+    
     </main>
         </>
         

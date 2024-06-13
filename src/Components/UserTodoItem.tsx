@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 
 import { TextField,ListItem, IconButton} from '@mui/material';
 import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
+import { blue,blueGrey } from "@mui/material/colors";
 
 interface UserTodoItemProps {
     task: Task;
@@ -29,26 +30,28 @@ export const UserTodoItem: React.FC<UserTodoItemProps> =
         return (     
 
             <tbody >
-
-                <tr className="border border-background border-solid border-l-0 border-r-0 border-t-0">
-                    <input type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} />
+                <tr className="border border-gray-200 border-solid border-l-0 border-r-0 border-b-0 h-16">
+                   <td> <input className={`${isEditing ? "hidden" : "px-6 py-3 w-5 h-5  rounded-full accent-primary focus:accent-primary align-middle"}`} type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} /></td>
                     {isEditing ? (
                         <>
                         <td>
                             <input
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
-                                type="text" value={editTaskTitle} onChange={handleEditTaskChange} />
-                            <IconButton className="py-1" onClick={handleEditTaskSave(task)}><Save /></IconButton>
-                            <IconButton className="py-1" onClick={handleEditTaskCancel}> <Cancel /></IconButton>
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                                    type="text" value={editTaskTitle} onChange={handleEditTaskChange} />
+                            </td>
+                            <td>
+                            <IconButton className="px-6 py-3 mx-1" sx={{ color: blueGrey[800] }}  onClick={handleEditTaskSave(task)}><Save /></IconButton>
+                            <IconButton className="px-6 py-3 mx-1" onClick={handleEditTaskCancel}> <Cancel /></IconButton>
                             </td>
                         </>
                     ) : (
                         <>
-                        <td className="text-lg px-6 py-3 text-primary"><h3 className="  text-lg leading-6 font-medium text-primary"> {task.title}</h3></td>
+                                <td className="text-lg px-6 py-3 text-primary">
+                                    <h3 className={`text-xl leading-6 font-medium text-primary ${task.completed ? "line-through text-gray-400" : ""}`}> {task.title}</h3>
+                                </td>
                             <td >
-                                <IconButton className="py-1 " onClick={handleEditButtonClick(task)} ><Edit /></IconButton>
-
-                                <IconButton className="py-1 " onClick={handleTaskDeleteClick(task)} ><Delete /></IconButton>
+                                <IconButton className="px-6 py-3 mx-1" onClick={handleEditButtonClick(task)} ><Edit /></IconButton>
+                                <IconButton className="px-6 py-3 mx-1" onClick={handleTaskDeleteClick(task)} ><Delete /></IconButton>
                             </td>
                         </>
                     )}
