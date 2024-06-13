@@ -31,25 +31,25 @@ export const UserTodoItem: React.FC<UserTodoItemProps> =
 
             <tbody >
                 <tr className="border border-gray-200 border-solid border-l-0 border-r-0 border-b-0 h-16">
-                   <td> <input className={`${isEditing ? "hidden" : "px-6 py-3 w-5 h-5  rounded-full accent-primary focus:accent-primary align-middle"}`} type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} /></td>
+                   <td className="px-4 py-4 align-middle"> <input className={`${isEditing ? "hidden" : "px-6 py-3 w-5 h-5  rounded-full accent-primary focus:accent-primary align-middle"}`} type="checkbox" checked={task.completed} onChange={handleTaskCompletedChange(task)} /></td>
                     {isEditing ? (
                         <>
-                        <td className="w-full">
+                        <td className="w-full px-4 py-4">
                             <input
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                     type="text" value={editTaskTitle} onChange={handleEditTaskChange} />
                             </td>
-                            <td className="flex items-center justify-end">
+                            <td className="flex items-center justify-end space-x-2 px-4 py-4">
                             <IconButton className="px-6 py-3 mx-1" sx={{ color: blueGrey[800] }}  onClick={handleEditTaskSave(task)}><Save /></IconButton>
                             <IconButton className="px-6 py-3 mx-1" onClick={handleEditTaskCancel}> <Cancel /></IconButton>
                             </td>
                         </>
                     ) : (
                         <>
-                                <td className="text-lg px-6 py-3 text-primary w-full">
+                                <td className="text-lg px-6 py-3 text-primary ">
                                     <h3 className={`text-xl leading-6 font-medium text-primary ${task.completed ? "line-through text-gray-400" : ""}`}> {task.title}</h3>
                                 </td>
-                            <td className="flex items-center justify-end">
+                            <td className="flex items-center justify-end space-x-2 px-4 py-4">
                                 <IconButton className="px-6 py-3 mx-1" onClick={handleEditButtonClick(task)} ><Edit /></IconButton>
                                 <IconButton className="px-6 py-3 mx-1" onClick={handleTaskDeleteClick(task)} ><Delete /></IconButton>
                             </td>
