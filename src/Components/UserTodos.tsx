@@ -166,7 +166,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         </div>
                                 <div className="mt-4">
         <input
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5"
+            className="bg-background border border-primary text-primary text-sm rounded-lg  block w-full p-2.5"
             placeholder='Add new task'
             type='text'
             value={newTaskTitle}
@@ -174,7 +174,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
             onKeyDown={handleNewTaskKeyDown}            
         />
       </div>
-            <main className="w-full mx-auto p-4 rounded-lg shadow-md overflow-hidden  md:min-w-[600px]">
+            <main className="w-full mx-auto px-4 pb-4 rounded-lg shadow-md overflow-hidden  md:min-w-[600px]">
 
       {isLoading ? (
         <CircularProgress />
