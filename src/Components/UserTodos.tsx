@@ -161,15 +161,16 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 handleTaskClearCompletedClick={handleTaskClearCompletedClick}
                 />
                 </div>
-              <main className="w-4/5 max-w-7xl px-6 bg-background  mb-6 rounded-b-xl mx-auto">
+              <main className="bg-background w-full mx-auto  rounded-lg shadow-md overflow-hidden">
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <table className="flex flex-wrap w-full">
+        
+            <div className="relative flex flex-col">
+        
           {tasks.map((task) => (
-              <thead className="p-2 sm:w-1/2 w-full" key={task.id}>
-            <tr className="">
-
+            
+          
               <UserTodoItem
                 task={task}
                 isEditing={editTask === task.id}
@@ -180,11 +181,13 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 handleEditTaskChange={handleEditTaskChange}
                 handleEditTaskSave={handleEditTaskSave}
                 handleEditTaskCancel={handleEditTaskCancel}
+                key={task.id}
                       />
-                       </tr>
-            </thead>
+                      
+          
           ))}
-        </table>
+        </div>
+       
       )}
       <div className="mt-4">
         <input
