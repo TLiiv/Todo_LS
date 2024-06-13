@@ -8,10 +8,6 @@ import { UserTodoItem } from './UserTodoItem';
 
 
 import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress, Box } from '@mui/material';
-import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
-
-
-
 
 
 
@@ -178,7 +174,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
             onKeyDown={handleNewTaskKeyDown}            
         />
       </div>
-            <main className="w-full mx-auto px-4 pb-4 rounded-lg shadow-md overflow-hidden  md:min-w-[600px]">
+            <main className="w-full mx-auto px-4 pb-4 rounded-lg shadow-md overflow-hidden bg-transparent  md:min-w-[600px]">
 
       {isLoading ? (
         <CircularProgress />

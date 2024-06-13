@@ -3,37 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "./Header";
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Layout from "./Layout";
-
-
-// {/* <div className="flex justify-center">
-// {/* <div className="">
-//   <Header />
-// </div> */}
-// <div className="w-2/4 ">
-// <TableContainer component={Paper}>
-// <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//   <TableHead>
-//     <TableRow>
-//       <TableCell>User</TableCell>
-//       <TableCell>Email</TableCell>
-//       <TableCell>Phone</TableCell>
-//     </TableRow>
-//   </TableHead>
-//   <TableBody>
-//     {userTableInfo}
-//   </TableBody>
-// </Table>
-// </TableContainer>
-// </div>
-// </div> */}
 
 
 interface Props {
@@ -82,7 +51,7 @@ export const UserTable: React.FC<Props> = (props: Props) => {
     <>
       <Header />
       
-      <main className="w-full max-w-7xl px-6  shadow-xl mb-6 rounded-xl mx-auto ">
+      <main className="w-full max-w-7xl px-6  shadow-xl mb-6 rounded-xl mx-auto bg-transparent">
     <div className="relative w-full flex flex-col ">
     <div className="relative flex flex-col self-center ">
       <table className="table-auto mx-auto">
