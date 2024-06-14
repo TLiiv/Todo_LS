@@ -5,18 +5,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Hero } from './Hero';
 import { UserTodoItem } from './UserTodoItem';
-
-
-import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress, Box } from '@mui/material';
-import { Edit, Delete, Save, Cancel } from '@mui/icons-material';
+import { LoadingSpinner } from './UI/loading-spinner';
 
 
 
-
-interface Props {
+interface UserTodosProps {
     id: string;
-
-
+    setError: React.Dispatch<React.SetStateAction<string | null>>;
+    error: string | null;
 }
 
 type Task = {
@@ -26,8 +22,8 @@ type Task = {
     completed: boolean
 }
 
-export const UserTodos: React.FC<Props> = (props: Props) => {
-    let routeUserId = props.id;
+export const UserTodos: React.FC<UserTodosProps> = ({ setError, error, id }) => {
+    let routeUserId = id;
     const tasksUrl = `https://jsonplaceholder.typicode.com/todos?userId=${routeUserId}`;
 
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -43,7 +39,6 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
     const totalTasks = tasks.length;
 
 
-
     //Get user tasks based on userId and save them to local storage
     const getUserTaskData = async () => {
         //Check if there are any stored tasks
@@ -55,10 +50,12 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         } else {
             try {
                 const response = await axios.get(tasksUrl);
+
                 setTasks(response.data);
                 localStorage.setItem(`tasks_${routeUserId}`, JSON.stringify(response.data));
             } catch (error) {
                 console.log(error);
+                setError("404 Failed to get tasks");
             } finally {
                 setIsLoading(false);
             }
@@ -75,7 +72,6 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         setNewTaskTitle(e.target.value);
     };
 
- 
 
     //Add new task with enter key
     const handleNewTaskKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -137,7 +133,6 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         setEditTask(null);
     }
 
-
     const handleEditTaskCancel = () => {
         setEditTask(null);
         setEditTaskTitle("");
@@ -149,52 +144,63 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         navigate("/");
     }
 
+    const sortedTasks = tasks.slice().sort((a, b) => Number(a.completed) - Number(b.completed));
 
     return (
         <>
-         <Button variant="contained" color="primary" onClick={handleOnBackClick}>Back to users</Button>
-            <Hero
-                completedTasks={completedTasks}
-                totalTasks={totalTasks}
-                handleTaskClearCompletedClick={handleTaskClearCompletedClick}
-            />
-            <Container>
-                <Box>
-                    {isLoading ? (
-                        <CircularProgress />
-                    ) : (
-                        
-                        <List>
-                            {tasks.map((task) => (
-                                <UserTodoItem
-                                    key={task.id}
-                                    task={task}
-                                    isEditing={editTask === task.id}
-                                    editTaskTitle={editTaskTitle}
-                                    handleTaskCompletedChange={handleTaskCompletedChange}
-                                    handleTaskDeleteClick={handleTaskDeleteClick}
-                                    handleEditButtonClick={handleEditButtonClick}
-                                    handleEditTaskChange={handleEditTaskChange}
-                                    handleEditTaskSave={handleEditTaskSave}
-                                    handleEditTaskCancel={handleEditTaskCancel}
-                                />
-                            ))}
-
-                        </List>
-                    )}
-                    <TextField
-                        value={newTaskTitle}
-                        onChange={handleNewTaskTitleChange}
-                        onKeyDown={handleNewTaskKeyDown}
-                        variant="outlined"
-                        size="small">
-                    </TextField>
-                    {/* <div>
-                        <Button  variant="contained" color="primary" onClick={handleTaskClearCompletedClick}>Clear Completed Tasks</Button>
-                    </div> */}
-                </Box>
-            </Container>
+            <div>
+                <button
+                    onClick={handleOnBackClick}
+                    className="bg-secondary hover:bg-background hover:text-secondary text-white font-bold py-2 px-4 border transition rounded-full my-4 focus:outline-none focus:border-secondary">
+                    Back To Users
+                </button>
+                <Hero
+                    completedTasks={completedTasks}
+                    totalTasks={totalTasks}
+                    handleTaskClearCompletedClick={handleTaskClearCompletedClick}
+                />
+            </div>
+            <div className="my-2">
+                <input
+                    className="bg-background border text-primary text-sm rounded-lg shadow-md block w-full p-2.5 focus:outline-none focus:border-secondary"
+                    placeholder='Add new task'
+                    type='text'
+                    value={newTaskTitle}
+                    onChange={handleNewTaskTitleChange}
+                    onKeyDown={handleNewTaskKeyDown}
+                />
+            </div>
+            {error && <div className="text-red-500 text-3xl">{error}</div>}
+            <main className="w-full mx-auto px-4 pb-4 rounded-lg shadow-md overflow-hidden bg-transparent  md:min-w-[600px]">
+                {isLoading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <div className="relative w-full flex flex-col ">
+                        <div className="relative flex flex-col self-center w-full">
+                            <table className="table-auto w-full mx-auto">
+                                {sortedTasks.map((task) => (
+                                    <UserTodoItem
+                                        task={task}
+                                        isEditing={editTask === task.id}
+                                        editTaskTitle={editTaskTitle}
+                                        handleTaskCompletedChange={handleTaskCompletedChange}
+                                        handleTaskDeleteClick={handleTaskDeleteClick}
+                                        handleEditButtonClick={handleEditButtonClick}
+                                        handleEditTaskChange={handleEditTaskChange}
+                                        handleEditTaskSave={handleEditTaskSave}
+                                        handleEditTaskCancel={handleEditTaskCancel}
+                                        key={task.id}
+                                    />
+                                ))}
+                            </table>
+                        </div>
+                    </div>
+                )}
+            </main>
         </>
     );
 }
+
+
+
 
