@@ -62,7 +62,9 @@ export const UserTable: React.FC<Props> = (props: Props) => {
         <Header />
     </div> */}
     <div className="w-2/4 ">
+    <Header />
     <TableContainer component={Paper}>
+      
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
