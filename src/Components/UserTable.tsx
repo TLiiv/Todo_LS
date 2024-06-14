@@ -20,13 +20,15 @@ const usersUrl = "https://jsonplaceholder.typicode.com/users";
 
 export const UserTable: React.FC<Props> = (props: Props) => {
 
-  const [users,setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const getUserData = async () => {
     try{
       const response = await axios.get(usersUrl);
       setUsers(response.data);
-    }catch(error){
+    } catch (error) {
+      setError("Failed to get user data");
       console.log(error);
     }
   }
@@ -35,9 +37,7 @@ export const UserTable: React.FC<Props> = (props: Props) => {
     getUserData();
   },[]);
 
-  //Rerender when users are updated
-  useEffect(()=>{
-  },[users])
+
 
   const userTableInfo = users.map((user) => (
    
@@ -60,11 +60,13 @@ export const UserTable: React.FC<Props> = (props: Props) => {
 
   return (
     <>
+       {error && <div className="text-red-500 text-3xl">{error}</div>}
       <Header />
       
       <main className="w-full max-w-7xl px-6  shadow-xl mb-6 rounded-xl mx-auto bg-transparent">
     <div className="relative w-full flex flex-col">
-    <div className="relative flex flex-col self-center ">
+          <div className="relative flex flex-col self-center ">
+            
       <table className="table-auto mx-auto hidden md:table">
         <thead>
           <tr className="border border-grey-600 border-solid border-l-0 border-r-0 border-t-0">

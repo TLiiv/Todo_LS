@@ -5,9 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Hero } from './Hero';
 import { UserTodoItem } from './UserTodoItem';
-
-
-import { Container, Button, TextField, Checkbox, Typography, List, ListItem, IconButton, CircularProgress, Box } from '@mui/material';
+import { LoadingSpinner } from './UI/loading-spinner';
 
 
 
@@ -41,7 +39,6 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
     const totalTasks = tasks.length;
 
 
-
     //Get user tasks based on userId and save them to local storage
     const getUserTaskData = async () => {
         //Check if there are any stored tasks
@@ -53,6 +50,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
         } else {
             try {
                 const response = await axios.get(tasksUrl);
+                
                 setTasks(response.data);
                 localStorage.setItem(`tasks_${routeUserId}`, JSON.stringify(response.data));
             } catch (error) {
@@ -164,7 +162,7 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
                 handleTaskClearCompletedClick={handleTaskClearCompletedClick}
                 />
         </div>
-                                <div className="my-2">
+            <div className="my-2">
         <input
             className="bg-background border text-primary text-sm rounded-lg shadow-md block w-full p-2.5 focus:outline-none focus:border-secondary"
             placeholder='Add new task'
@@ -176,8 +174,8 @@ export const UserTodos: React.FC<Props> = (props: Props) => {
       </div>
             <main className="w-full mx-auto px-4 pb-4 rounded-lg shadow-md overflow-hidden bg-transparent  md:min-w-[600px]">
 
-      {isLoading ? (
-        <CircularProgress />
+                {isLoading ? (
+                    <LoadingSpinner />
       ) : (     
         <div className="relative w-full flex flex-col ">
             <div className="relative flex flex-col self-center w-full">
