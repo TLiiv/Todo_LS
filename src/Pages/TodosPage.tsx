@@ -2,19 +2,21 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { UserTodos } from "../Components/UserTodos";
 
-export interface ITodosProps {}
+export interface TodosPageProps {
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  error: string | null;
+}
 
-const TodosPage: React.FC<ITodosProps> = (props: ITodosProps) => {
+const TodosPage: React.FC<TodosPageProps> = ({ setError, error }) => {
   const { id } = useParams<{ id: string }>();
-  
-
   if (!id) {
-    return <div>User ID is missing</div>;
+    setError("User id is missing!");
+    return error;
   }
 
   return (
     <div>
-      <UserTodos id={id} />
+      <UserTodos id={id} setError={setError} error={error} />
     </div>
   );
 };

@@ -1,13 +1,17 @@
 import { UserTable } from '../Components/UserTable';
 
 
-export interface IHomeProps {
+export interface HomePageProps {
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  error: string | null;
 }
 
-export default function Home (props: IHomeProps) {
+const HomePage: React.FC<HomePageProps> = ({ setError, error }) => {
   return (
     <div>
-        <UserTable />
+      <UserTable setError={setError} error={error} />
     </div>
   );
-}
+};
+
+export default HomePage;
