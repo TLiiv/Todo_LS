@@ -17,11 +17,13 @@ This template includes setup instructions and configurations for a streamlined d
 # Getting Started
 To use this project, follow these steps:
 
-### Prerequisites
+## Prerequisites
 Make sure you have Node.js and npm installed on your machine.
 
-Node.js: Download [here](https://nodejs.org/en)
-npm: Normally comes with Node.js installation
+### Node.js: 
+- Download npm [here](https://nodejs.org/en)
+
+Normally comes with Node.js installation
 ### Installation
 ### Clone the repository and install dependencies:
 
