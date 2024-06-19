@@ -1,6 +1,6 @@
 interface LoadingSpinnerProps{}
 
-export const LoadingSpinner: React.FC<LoadingSpinnerProps> = (props: LoadingSpinnerProps) => {
+export const LoadingSpinner: React.FC<LoadingSpinnerProps> = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
             <div className="flex space-x-2">
